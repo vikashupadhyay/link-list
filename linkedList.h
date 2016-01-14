@@ -1,7 +1,10 @@
 typedef void (*ElementProcessor)(void *);
 
+typedef int(MatchFunc)(void*, void*);
+
 typedef struct element{
 	void* value;
+	int index;
 	struct element *next;
 }Element;
 
@@ -21,3 +24,11 @@ void *get_last_element(LinkedList list);
 
 
 void forEach(LinkedList, ElementProcessor e);
+
+void * getElementAt(LinkedList, int );
+
+int indexOf(LinkedList, void *);
+
+void * deleteElementAt(LinkedList *, int);
+
+int indexOf(LinkedList, void *);

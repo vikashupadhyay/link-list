@@ -57,7 +57,7 @@ void test_to_get_last_element_of_list(){
 }
 
 void increment(void *e){
-	*(int *)e = *(int *)e+1;
+	(*(int *)e = *(int *)e+1);
 }
 
 void test_for_forEach_function(){
@@ -69,4 +69,79 @@ void test_for_forEach_function(){
 	forEach(list,increment);
 	assert(*(int *)list.head->value==33);
 	assert(*(int *)list.tail->value==24);
+}
+
+void test_for_get_element_at_given_index(){
+	LinkedList list = createList();
+	int num[10] = {32,43,223,54,76,7,45,3,4,23};
+	for (int i = 0; i < 10; ++i){
+		add_to_list(&list,&num[i]);
+	};
+	 void *ele1 = getElementAt(list,4);
+	 void *ele2 = getElementAt(list,6);
+	 void *ele3 = getElementAt(list,11);
+	 assert(*(int *)ele1==76);
+	 assert(*(int *)ele2==45);
+	 assert(ele3==NULL);
+}
+
+void test_for_get_indexof_given_pointer(){
+	LinkedList list = createList();
+	int num[10] = {32,43,223,54,76,7,45,3,4,23};
+	for (int i = 0; i < 10; ++i){
+		add_to_list(&list,&num[i]);
+	};
+	assert(indexOf(list,&num[5])==5);
+	assert(indexOf(list,&num[10])==-1);
+};
+
+void test_deleteElementAt_when_element_is_in_middle(){
+	LinkedList list = createList();
+	int num[10] = {32,43,223,54,76,7,45,3,4,23};
+	for (int i = 0; i < 10; ++i){
+		add_to_list(&list,&num[i]);
+	};
+	assert(*(int *)deleteElementAt(&list,3)==54);
+	assert(*(int *)getElementAt(list,3)==76);
+};
+
+void test_deleteElementAt_when_element_is_in_beginning(){
+	LinkedList list = createList();
+	int num[10] = {32,43,223,54,76,7,45,3,4,23};
+	for (int i = 0; i < 10; ++i){
+		add_to_list(&list,&num[i]);
+	};
+	assert(*(int *)deleteElementAt(&list,0)==32);
+	assert(*(int *)getElementAt(list,0)==43);
+};
+
+void test_deleteElementAt_when_element_is_in_end(){
+	LinkedList list = createList();
+	int num[10] = {32,43,223,54,76,7,45,3,4,23};
+	for (int i = 0; i < 10; ++i){
+		add_to_list(&list,&num[i]);
+	};
+	assert(*(int *)deleteElementAt(&list,9)==23);
+	assert(getElementAt(list,9)==0);
+};
+int isEven(void *num,void *hint){
+	return *(int *)num%2==0;
+}
+void test_for_filter_even_number_from_list(){
+	LinkedList list = createList();
+	void *hint;
+	int num[10] = {32,43,223,54,76,7,45,3,4,23};
+	for (int i = 0; i < 10; ++i){
+		add_to_list(&list,&num[i]);
+	};
+	LinkedList list1 =  filter(list,&isEven,&hint);
+	Element *ele = list1.head;
+	int filteredValue[4] = {32,54,76,4};
+	int i = 0;
+	while(ele!=NULL){
+		assert(*(int *)ele->value==filteredValue[i]);
+		ele = ele->next;
+		i++;
+	}
+	assert(list1.length==4);
 }
