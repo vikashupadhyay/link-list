@@ -1,6 +1,11 @@
+
 typedef void (*ElementProcessor)(void *);
 
 typedef int(MatchFunc)(void*, void*);
+
+typedef void ConvertFunc(void* hint, void* sourceItem, void* destinationItem);
+
+typedef void* Reducer(void* hint, void* previousItem, void* item);
 
 typedef struct element{
 	void* value;
@@ -32,3 +37,12 @@ int indexOf(LinkedList, void *);
 void * deleteElementAt(LinkedList *, int);
 
 int indexOf(LinkedList, void *);
+
+LinkedList  filter(LinkedList list, MatchFunc *match, void *hint);
+
+LinkedList reverse(LinkedList);
+
+int asArray(LinkedList, void **, int);
+
+void *reduce(LinkedList, Reducer*, void *hint, void *initialValue);
+

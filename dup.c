@@ -152,11 +152,6 @@ LinkedList map(LinkedList list, ConvertFunc *match, void *hint){
 };
 
 void *reduce(LinkedList list, Reducer *match, void *hint, void *initialValue){
-	Element *ele = list.head;
-	while(ele!= NULL){
-		initialValue =  match(hint,ele->value,initialValue);
-		ele = ele->next;
-	}
-	return initialValue;
+	return list;
 };
 
